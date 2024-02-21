@@ -1,8 +1,16 @@
 import React from 'react'
+import Login from './components/Login'
+import Header from './components/Header'
+import Browse from './components/Browse'
 
 const App = () => {
   return (
-    <div className=' text-4xl bg-purple-900'>Building netflix gpt with react</div>
+    <div>
+    <Header/>
+        <Login/>
+        <Browse/>
+        
+    </div>
   )
 }
 
