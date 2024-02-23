@@ -4,15 +4,14 @@ import { formValidate } from "../utils/validate";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../utils/firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
 import { updateProfile } from "firebase/auth";
 import { addUser } from "../utils/userSlice";
 import { useDispatch } from "react-redux";
+import { AVATAR_LOGO, BACKGROUND } from "../utils/constants";
 
 const Login = () => {
   const [isSignIn, setIsSignIn] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const email = useRef(null);
@@ -50,8 +49,7 @@ const Login = () => {
 
           updateProfile(user, {
             displayName: fullName.current.value,
-            photoURL:
-              "https://i.pinimg.com/474x/bc/f0/27/bcf0272b061414169e8d2e21659223c7.jpg",
+            photoURL: AVATAR_LOGO,
           })
             .then(() => {
               // Profile updated!
@@ -65,8 +63,6 @@ const Login = () => {
                   photoURL: photoURL,
                 })
               );
-              navigate("/browse");
-              console.log("Profile updated");
             })
             .catch((error) => {
               // An error occurred
@@ -91,7 +87,7 @@ const Login = () => {
           // Signed in
           const user = userCredential.user;
           console.log(user);
-          navigate("/browse");
+
           // ...
         })
         .catch((error) => {
@@ -108,7 +104,7 @@ const Login = () => {
       <div className="absolute -z-10">
         <img
           className="filter brightness-50"
-          src="https://assets.nflxext.com/ffe/siteui/vlv3/c0b69670-89a3-48ca-877f-45ba7a60c16f/7a5b8d64-09ba-41ce-aa4f-f7664f14fd52/NP-en-20240212-popsignuptwoweeks-perspective_alpha_website_large.jpg"
+          src={BACKGROUND}
           alt="background"
         />
       </div>
