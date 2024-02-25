@@ -5,11 +5,15 @@ import { onAuthStateChanged, signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { addUser, removeUser } from "../utils/userSlice";
 import { LOGO } from "../utils/constants";
+import { toggleShowGpt } from "../utils/gptSlice";
+import {SUPPORTED_LANGUAGES} from "../utils/constants";
+import { setLanguage } from "../utils/configSlice";
 
 const Header = () => {
   const userData = useSelector((store) => store.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const isGptPage = useSelector((store) => store.gpt.showGpt)
 
   const handleSignOut = () => {
     signOut(auth)
@@ -20,6 +24,7 @@ const Header = () => {
       .catch((error) => {
         // An error happened.
         console.log(error.message);
+        
       });
   };
 
@@ -50,6 +55,15 @@ const Header = () => {
     return () => unsubscribe();
   }, []);
 
+  const handleGpt = () => {
+    dispatch(toggleShowGpt())
+  }
+
+  const handleChangeLang = (e) => {
+    // console.log(e.target.value);
+    dispatch((setLanguage(e.target.value)))
+  }
+
   return (
     <div className=" absolute w-full flex justify-between z-10 items-center ">
       <div className=" w-60  py-2 px-4  ">
@@ -57,7 +71,12 @@ const Header = () => {
       </div>
       {userData && (
         <div className=" flex">
+       {isGptPage &&  <select className=" bg-black text-gray-100 py-2 px-3 rounded-sm" onChange={(e)=> handleChangeLang(e)}>
+       {SUPPORTED_LANGUAGES.map((lan) => <option key={lan.identifier} value={lan.identifier}>{lan.name}</option>) }
+        </select>}
+        <button className=" text-white mx-6 bg-lime-600 p-2 rounded-md" onClick={handleGpt}>{isGptPage?"Home":"Search-gpt"}</button>
           <img className=" w-12 h-12 " src={userData?.photoURL} />
+          
           <button
             className=" px-4 py-2  bg-red-500 rounded-md"
             onClick={handleSignOut}
