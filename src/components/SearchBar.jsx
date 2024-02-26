@@ -2,7 +2,6 @@ import React, { useRef } from 'react'
 import { languages } from '../utils/languages'
 import { useDispatch, useSelector } from 'react-redux'
 import { openai } from '../utils/openAi'
-import { useSearchMovies } from '../hooks/useSearchMovies'
 import { API_KEY_OPTIONS } from '../utils/constants'
 import { addGptMovies } from '../utils/gptSlice'
 
@@ -23,9 +22,9 @@ const SearchBar = () => {
   
 
   const getDataGpt = async()=> {
-    const query = "assume you are a movie recommended system so give a list of movies name only of: " + text + ". name only 5 movie name with commma separated like this example : Sholay,Ironman,Pathan,Main Hero,Dunki"
+    const query = `Generate movie suggestions for${text} , separated by commas.`
     const completion = await openai.chat.completions.create({
-      messages: [{ role: "user", content: query }],
+      messages: [{ role: "system", content: query }],
       model: "gpt-3.5-turbo",
     });
   
