@@ -12,9 +12,9 @@ const gptSlice = createSlice({
             state.showGpt = !state.showGpt
         },
         addGptMovies:(state,action) => {
-            const{results,gptResults} = action.payload
+            const{gptMoviesData,gptResults} = action.payload
             state.gptResults = gptResults
-            state.gptMovies = results
+            state.gptMovies = gptMoviesData
         },
         
     }

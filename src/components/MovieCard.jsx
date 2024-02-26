@@ -2,6 +2,7 @@ import React from 'react'
 import { IMAGE_URL } from '../utils/constants'
 
 const MovieCard = ({movie}) => {
+  console.log("inside movieCard");
     const{poster_path} = movie
     if(!poster_path) return
   return (
