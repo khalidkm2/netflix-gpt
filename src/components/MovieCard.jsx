@@ -6,7 +6,7 @@ const MovieCard = ({movie}) => {
     if(!poster_path) return
   return (
     <div className=' flex-shrink-0 pr-5 m-4'>
-        <img className=' w-40' alt='image' src={IMAGE_URL+poster_path} />
+        <img className=' md:w-40 w-28' alt='image' src={IMAGE_URL+poster_path} />
     </div>
   )
 }

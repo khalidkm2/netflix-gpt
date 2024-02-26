@@ -103,7 +103,7 @@ const Login = () => {
       <Header />
       <div className="absolute -z-10">
         <img
-          className="filter brightness-50"
+          className=" h-screen md:h-full object-cover filter brightness-50"
           src={BACKGROUND}
           alt="background"
         />
@@ -111,7 +111,7 @@ const Login = () => {
 
       <form
         onSubmit={(e) => e.preventDefault()}
-        className="bg-black bg-opacity-65 w-3/12 absolute mt-24 mx-auto right-0 left-0 flex flex-col text-white pb-20 rounded-sm"
+        className="bg-black bg-opacity-65 w-9/12 md:w-3/12 absolute mt-24 mx-auto right-0 left-0 flex flex-col text-white pb-20 rounded-sm"
       >
         <h2 className="mt-3 pb-10 pt-4 w-9/12 mx-auto text-3xl font-bold">
           Sign in

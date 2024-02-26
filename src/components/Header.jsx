@@ -66,7 +66,7 @@ const Header = () => {
 
   return (
     <div className=" absolute w-full flex justify-between z-10 items-center ">
-      <div className=" w-60  py-2 px-4  ">
+      <div className=" w-40 md:w-60  py-2 px-4  ">
         <img className=" z-100" src={LOGO} />
       </div>
       {userData && (
@@ -74,8 +74,8 @@ const Header = () => {
        {isGptPage &&  <select className=" bg-black text-gray-100 py-2 px-3 rounded-sm" onChange={(e)=> handleChangeLang(e)}>
        {SUPPORTED_LANGUAGES.map((lan) => <option key={lan.identifier} value={lan.identifier}>{lan.name}</option>) }
         </select>}
-        <button className=" text-white mx-6 bg-lime-600 p-2 rounded-md" onClick={handleGpt}>{isGptPage?"Home":"Search-gpt"}</button>
-          <img className=" w-12 h-12 " src={userData?.photoURL} />
+        <button className=" text-white mx-2 md:mx-6 bg-lime-600 p-1 md:p-2 rounded-md " onClick={handleGpt}>{isGptPage?"Home":"Search-gpt"}</button>
+          <img className=" w-12 h-12 hidden md:block " src={userData?.photoURL} />
           
           <button
             className=" px-4 py-2  bg-red-500 rounded-md"

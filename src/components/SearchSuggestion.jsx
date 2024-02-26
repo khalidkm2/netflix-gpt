@@ -9,8 +9,8 @@ const SearchSuggestion = () => {
   console.log(gptResults);
 
   return (
-    <div>
-      <h1></h1>
+    <div className=' bg-black bg-opacity-80'>
+     
       {gptResults.map((movieName,index) => <MovieList key={movieName} title={movieName} movies={gptMovies[index]?.results}/>)}
     </div>
   )
