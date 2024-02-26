@@ -6,7 +6,7 @@ import { BACKGROUND } from '../utils/constants'
 const SearchGptPage = () => {
   return (
     <div>
-    <div className="absolute -z-10">
+    <div className=" fixed -z-10">
         <img
           className="filter brightness-50"
           src={BACKGROUND}
