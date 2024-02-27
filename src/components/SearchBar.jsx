@@ -13,12 +13,12 @@ const SearchBar = () => {
 
   const searchMovies = async(movieName) => {
     // console.log("insi");
-    console.log(movieName);
+    // console.log(movieName);
     
       const data = await fetch('https://api.themoviedb.org/3/search/movie?query='+movieName+'&include_adult=false&language=en-US&page=1', API_KEY_OPTIONS);
   
       const jsonData = await data.json();
-      console.log(jsonData);
+      (jsonData);
       return jsonData.results
     };
   
@@ -30,7 +30,7 @@ const SearchBar = () => {
       model: "gpt-3.5-turbo",
     });
   
-    console.log(completion?.choices[0]);
+    // console.log(completion?.choices[0]);
     const gptMovies = completion?.choices[0]?.message?.content
     // console.log(gptMovies);
     const gptMoviesList = gptMovies.split(',')

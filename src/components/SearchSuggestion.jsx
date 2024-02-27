@@ -6,7 +6,7 @@ const SearchSuggestion = () => {
   const {gptMovies,gptResults} = useSelector((store) => store.gpt)
   if(!gptResults) return
 
-  console.log(gptResults);
+  // console.log(gptResults);
 
   return (
     <div className=' bg-black bg-opacity-80'>

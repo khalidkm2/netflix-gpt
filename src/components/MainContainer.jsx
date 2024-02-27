@@ -1,10 +1,20 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import VideoTitle from './VideoTitle'
 import VideoBackground from './VideoBackground'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { clearTrailerVideo } from '../utils/moviesSlice'
 
 const MainContainer = () => {
     const movies = useSelector((store) => store.movies.nowPlayingMovies)
+    const dispatch = useDispatch()
+
+    useEffect(()=> {
+      return ()=> {
+          dispatch(clearTrailerVideo())
+      }
+    },[dispatch])
+
+
     if(!movies) return
     const mainMovie = movies[2]
     // console.log(mainMovie);
@@ -14,7 +24,7 @@ const MainContainer = () => {
   return (
     <div>
         <VideoTitle overview={overview} title={original_title} />
-        <VideoBackground id={id} />
+        <VideoBackground id={id} fullWidth={true} />
     </div>
   )
 }
