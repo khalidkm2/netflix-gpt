@@ -74,7 +74,7 @@ const Header = () => {
        {isGptPage &&  <select className=" bg-black text-gray-100 py-2 px-3 rounded-sm" onChange={(e)=> handleChangeLang(e)}>
        {SUPPORTED_LANGUAGES.map((lan) => <option key={lan.identifier} value={lan.identifier}>{lan.name}</option>) }
         </select>}
-        <button className=" text-white mx-2 md:mx-6 bg-white p-1 md:p-2 rounded-md bg-purple-800" onClick={handleGpt}>{isGptPage?"Home":"Search-gpt"}</button>
+        <button className=" text-white mx-2 md:mx-6  p-1 md:p-2 rounded-md bg-purple-800" onClick={handleGpt}>{isGptPage?"Home":"Search-gpt"}</button>
          {/* { <img className=" w-12 h-12 hidden md:block " src={userData?.photoURL} />
           } */}
           <button
