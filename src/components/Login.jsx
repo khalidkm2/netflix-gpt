@@ -9,14 +9,18 @@ import { addUser } from "../utils/userSlice";
 import { useDispatch } from "react-redux";
 import { AVATAR_LOGO, BACKGROUND } from "../utils/constants";
 
+
 const Login = () => {
   const [isSignIn, setIsSignIn] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
   const dispatch = useDispatch();
+  const [showPassword,setShowPassword] = useState(false)
+
 
   const email = useRef(null);
   const password = useRef(null);
   const fullName = useRef(null);
+  
 
   const handleToggleSignIn = () => {
     setIsSignIn(!isSignIn);
@@ -63,6 +67,7 @@ const Login = () => {
                   photoURL: photoURL,
                 })
               );
+              
             })
             .catch((error) => {
               // An error occurred
@@ -97,6 +102,11 @@ const Login = () => {
         });
     }
   };
+
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword)
+
+  }
 
   return (
     <div>
@@ -133,10 +143,15 @@ const Login = () => {
         <input
           ref={password}
           className="mt-3 p-2 w-9/12 mx-auto rounded-md bg-gray-600"
-          type="password"
+          type={showPassword?"text":"password"}
           placeholder="password"
         />
-        <p className="text-red-500 font-bold text-md mt-1 p-2 w-9/12 mx-auto">
+        <div className=" flex items-center mt-1 p-2 w-9/12 mx-auto rounded-md ">
+        <input id="show" type="checkbox" className=" mt-1 mr-1 cursor-pointer " onChange={toggleShowPassword}/>
+        <label htmlFor="show" className=" text-gray-300 cursor-pointer">show password</label>
+        </div>
+       
+        <p className="text-red-500 text-xs font-bold text-md mt-1 p-2 w-9/12 mx-auto">
           {errorMessage}
         </p>
         <button
@@ -146,7 +161,7 @@ const Login = () => {
           {isSignIn ? "sign in" : "sign up"}
         </button>
         <p
-          className="mt-3 p-2 w-9/12 mx-auto cursor-pointer"
+          className="mt-3 p-2 w-9/12 mx-auto cursor-pointer italic font-thin"
           onClick={handleToggleSignIn}
         >
           {isSignIn

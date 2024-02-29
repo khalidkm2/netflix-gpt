@@ -8,6 +8,9 @@ export const formValidate = (...all) => {
     if(fullName){
         const isFullName = /^[A-Za-z ]+$/.test(fullName)
         if(!isFullName) return "Enter a valid name"
+        if(!isEmailValid) return "Email is not valid"
+        if(!isPasswordValid) return "Password length must be atleast 8 and should contain one uppercase, lowercase, number and symbol."
+
     }
 
     if(!isEmailValid) return "Email is not valid"

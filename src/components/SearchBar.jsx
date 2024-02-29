@@ -51,7 +51,7 @@ const SearchBar = () => {
   return (
     <div className=' pt-[30%] md:pt-[8%] flex justify-center'>
     <form onSubmit={(e) => e.preventDefault()} className=' bg-black text-white w-11/12 md:w-1/2 p-4 grid grid-cols-12'>
-        <input ref={text} className=' border border-gray-500  text-black col-span-10 rounded-sm' type='text'   />
+        <input ref={text} className='   p-2 text-gray-700 focus col-span-10 rounded-sm' type='text'   />
         <button onClick={handleClickGpt} className=' bg-red-500 text-black py-2 ml-2 col-span-2 rounded-lg'>{languages[lang].search}</button>
     </form>
     </div>

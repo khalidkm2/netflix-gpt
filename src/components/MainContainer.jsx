@@ -6,13 +6,8 @@ import { clearTrailerVideo } from '../utils/moviesSlice'
 
 const MainContainer = () => {
     const movies = useSelector((store) => store.movies.nowPlayingMovies)
-    const dispatch = useDispatch()
 
-    useEffect(()=> {
-      return ()=> {
-          dispatch(clearTrailerVideo())
-      }
-    },[dispatch])
+   
 
 
     if(!movies) return

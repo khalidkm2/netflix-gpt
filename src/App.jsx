@@ -2,8 +2,9 @@ import React from "react";
 import Login from "./components/Login";
 import Browse from "./components/Browse";
 
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
 import MovieInfo from "./components/MovieInfo";
+import Header from "./components/Header";
 
 const router = createBrowserRouter([
   {
@@ -21,7 +22,10 @@ const router = createBrowserRouter([
 ]);
 
 const App = () => {
-  return <RouterProvider router={router}></RouterProvider>;
+  return <RouterProvider router={router}>
+   
+   
+  </RouterProvider>;
 };
 
 export default App;
