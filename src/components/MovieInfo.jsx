@@ -42,7 +42,7 @@ const handleClick = () => {
     <>
     <div className=" bg-black">
     {/* <Header/> */}
-    <button className=" absolute border border-black  text-4xl text-white p-4 left-0" onClick={handleClick}>🔙</button>
+    <button className=" absolute   text-4xl text-white p-4 left-0" onClick={handleClick}>🔙</button>
 
     </div>
 <div className=" bg-[#0a0811] h-screen overflow-auto text-white">
