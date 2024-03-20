@@ -13,11 +13,11 @@ const VideoBackground = ({ id ,fullWidth}) => {
 
   const widthStyle = fullWidth?'w-screen':'w-[900px]'
 
-  useEffect(()=> {
-    return ()=> {
-        dispatch(clearTrailerVideo())
-    }
-  },[])
+  // useEffect(()=> {
+  //   return ()=> {
+  //       dispatch(clearTrailerVideo())
+  //   }
+  // },[])
 
   return (
     <div className="">

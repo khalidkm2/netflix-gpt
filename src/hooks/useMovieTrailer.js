@@ -11,6 +11,7 @@ export const useMovieTrailer = (id) => {
 
 
     const getVideosList = async () => {
+      // console.log("inside getvideoslist");
         const data = await fetch(
           `https://api.themoviedb.org/3/movie/${id}/videos?language=en-US`,
           API_KEY_OPTIONS
@@ -30,6 +31,6 @@ export const useMovieTrailer = (id) => {
     
       useEffect(() => {
 
-        !movieTrailer && getVideosList();
+        getVideosList();
       }, []);
 }

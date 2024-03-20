@@ -21,11 +21,11 @@ const MovieInfo = () => {
   console.log(movieInfo);
 
 
-  useEffect(()=> {
-    return ()=> {
-        dispatch(clearTrailerVideo())
-    }
-  },[dispatch])
+  // useEffect(()=> {
+  //   return ()=> {
+  //       dispatch(clearTrailerVideo())
+  //   }
+  // },[dispatch])
 
 
   if(!movieInfo) return

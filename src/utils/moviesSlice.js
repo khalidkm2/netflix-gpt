@@ -41,7 +41,7 @@ const moviesSlice = createSlice({
             state.movieInfo = action.payload
         },
         clearTrailerVideo:(state,actionn) => {
-            state.movieInfo = null
+            state.trailerVideo = null
         }
 
     }
