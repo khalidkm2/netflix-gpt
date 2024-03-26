@@ -34,7 +34,7 @@ const SearchBar = () => {
     // const gptMovies = completion?.choices[0]?.message?.content
     // console.log(gptMovies);
     // https://corsproxy.io/?
-    const data = await fetch("https://api.anthropic.com/v1/messages", {
+    const data = await fetch("https://corsproxy.io/?https://api.anthropic.com/v1/messages", {
     method: "POST",
     headers: {
       "x-api-key":
