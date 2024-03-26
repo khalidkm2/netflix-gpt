@@ -8,6 +8,7 @@ import { useUpcomingMovies } from "../hooks/useUpcomingMovies";
 import { useDispatch, useSelector } from "react-redux";
 import SearchGptPage from "./SearchGptPage";
 import { clearTrailerVideo } from "../utils/moviesSlice";
+import Footer from "./Footer";
 
 const Browse = () => {
   useNowPlayingMovies();
@@ -28,7 +29,8 @@ const Browse = () => {
     <div className="">
       <Header />
       {showGpt? <SearchGptPage/>:<><MainContainer/>
-      <SecondaryContainer/></>}
+      <SecondaryContainer/><Footer/></>}
+      
       
     </div>
   );

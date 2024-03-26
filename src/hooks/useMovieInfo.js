@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addMovieInfo } from "../utils/moviesSlice";
 
 
-export const useMovieInfo = (id) => {
+export const useMovieInfo = (id,titleName) => {
     const dispatch = useDispatch()
     // const movieInfo = useSelector((store) => store.movies.trailerVideo)
 
@@ -14,7 +14,7 @@ export const useMovieInfo = (id) => {
     const getMovieInfo = async () => {
         const data = await fetch(
           `
-          https://api.themoviedb.org/3/movie/${id}`,
+          https://api.themoviedb.org/3/${titleName}/${id}`,
           API_KEY_OPTIONS
         );
         const jsonData = await data.json();

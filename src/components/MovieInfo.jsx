@@ -14,10 +14,15 @@ const MovieInfo = () => {
   const { id } = useParams();
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const showSeries = useSelector((store) => store.config.showSeries);
+  let titleName = showSeries?"tv":"movie";
 
-  useMovieInfo(id);
+  
+
+  useMovieInfo(id,titleName);
 
   const movieInfo = useSelector((store) => store.movies.movieInfo);
+  // const seriesInfo = useSelector((store) => store.series.)
   console.log(movieInfo);
 
 
