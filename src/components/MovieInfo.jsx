@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useMovieInfo } from "../hooks/useMovieInfo";
 import Header from "./Header";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,9 +8,10 @@ import { IMAGE_URL } from "../utils/constants";
 import { clearTrailerVideo } from "../utils/moviesSlice";
 import Genre from "./Genre";
 import MovieCreaters from "./MovieCreaters";
+import { MdArrowBackIosNew } from "react-icons/md";
 
 const MovieInfo = () => {
-  console.log("inside movie info");
+  // console.log("inside movie info");
   const { id } = useParams();
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -23,7 +24,7 @@ const MovieInfo = () => {
 
   const movieInfo = useSelector((store) => store.movies.movieInfo);
   // const seriesInfo = useSelector((store) => store.series.)
-  console.log(movieInfo);
+  // console.log(movieInfo);
 
 
   // useEffect(()=> {
@@ -34,11 +35,11 @@ const MovieInfo = () => {
 
 
   if(!movieInfo) return
-  console.log(movieInfo);
+  // console.log(movieInfo);
   const { runtime, title, release_date, poster_path,genres,overview,production_companies} = movieInfo;
  
 
-console.log(production_companies);
+// console.log(production_companies);
 const handleClick = () => {
   navigate("/browse")
 }
@@ -47,8 +48,8 @@ const handleClick = () => {
     <>
     <div className=" bg-black">
     {/* <Header/> */}
-    <button className=" absolute   text-4xl text-white p-4 left-0" onClick={handleClick}>🔙</button>
-
+  <Link to={"/browse"}><MdArrowBackIosNew className='text-white absolute top-8 left-6 text-3xl cursor-pointer' />
+</Link>
     </div>
 <div className=" bg-[#0a0811] h-screen overflow-auto text-white">
     <div className=" max-w-[1200px] bg-[#141212] mx-auto">

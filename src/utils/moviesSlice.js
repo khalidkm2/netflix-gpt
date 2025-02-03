@@ -19,7 +19,8 @@ const moviesSlice = createSlice({
             
         ],
         trailerVideo:null,
-        movieInfo:null
+        movieInfo:null,
+        watchList:[],
     }
        
     ,
@@ -42,10 +43,26 @@ const moviesSlice = createSlice({
         },
         clearTrailerVideo:(state,actionn) => {
             state.trailerVideo = null
-        }
+        },
+        addToWatchlist: (state, action) => {
+            const movieIndex = state.watchList.findIndex(movie => movie.id === action.payload.id);
+            console.log("watchlist", state.watchList);
+            
+            if (movieIndex !== -1) {
+              // Movie exists, remove it
+              state.watchList.splice(movieIndex, 1);
+            } else {
+              // Movie doesn't exist, add it
+              state.watchList.push(action.payload);
+            }
+          }
+,          
+          removeFromWatchlist: (state, action) => {
+            state.watchList = state.watchList.filter(movie => movie.id !== action.payload);
+          }
 
     }
 })
 
-export const{addNewPlayingMovies,addTrailerVideo,addTopRatedMovies,addUpcomingMovies,addMovieInfo,clearTrailerVideo} = moviesSlice.actions;
+export const{addNewPlayingMovies,addTrailerVideo,addTopRatedMovies,addUpcomingMovies,addMovieInfo,clearTrailerVideo,addToWatchlist,removeFromWatchlist} = moviesSlice.actions;
 export const moviesSliceReducer = moviesSlice.reducer

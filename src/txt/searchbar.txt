@@ -1,0 +1,70 @@
+ // const completion = await openai.chat.completions.create({
+    //   messages: [{ role: "system", content: query }],
+    //   model: "gpt-3.5-turbo",
+    // });
+
+    // // console.log(completion?.choices[0]);
+    // const gptMovies = completion?.choices[0]?.message?.content
+    // console.log(gptMovies);
+    // https://corsproxy.io/?
+
+    // console.log("haha",allPromises);
+    try {
+      // const data = await fetch("https://corsproxy.io/?https://api.anthropic.com/v1/messages", {
+      //   method: "POST",
+      //   headers: {
+      //     "x-api-key":
+      //       OPENAI_KEY,
+      //     "anthropic-version": "2023-06-01",
+      //     "content-type": "application/json",
+      //   },
+      //   // body: '{\n    "model": "claude-3-opus-20240229",\n    "max_tokens": 1024,\n    "messages": [\n        {"role": "user", "content": "Hello, world"}\n    ]\n}',
+      //   body: JSON.stringify({
+      //     model: "claude-3-opus-20240229",
+      //     max_tokens: 1024,
+      //     messages: [
+      //       {
+      //         role: "user",
+      //         content: query,
+      //       },
+      //     ],
+      //   }),
+      // });
+
+      // const data = await fetch("https://api.keywordsai.co/chat/completions", // Switch to the Keywords AI base URL
+      //   {
+      //     method: "POST",
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //       "Authorization": "Bearer q2wmQUIX.0M0VAgoaTh8t8Hl5sdFHKYphDaF7ela5", // Switch to your Keywords AI API key
+      //     },
+      //     body: JSON.stringify({
+      //       "model": "gpt-3.5-turbo",
+      //       "messages": [{"role":"user","content":query}],
+      //     }),
+      //   })
+      // .then(response => response.json())
+      // .then(data => console.log(data));
+
+
+
+
+
+       const jsonData = await response.json();
+      console.log(jsonData);
+      const gptMovies = jsonData?.choices[0]?.message?.content;
+      const gptMoviesList = gptMovies.split(",");
+      console.log(gptMoviesList);
+      const allPromises = Promise.all(
+        gptMoviesList.map((movie) => searchMovies(movie))
+      );
+
+      allPromises.then((results) =>
+        dispatch(
+          addGptMovies({ gptMoviesData: results, gptResults: gptMoviesList })
+        )
+      );
+    } catch (error) {
+      console.log(error);
+      alert("gpt api limit reached");
+    }

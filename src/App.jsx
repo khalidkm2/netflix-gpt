@@ -5,6 +5,7 @@ import Browse from "./components/Browse";
 import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
 import MovieInfo from "./components/MovieInfo";
 import Header from "./components/Header";
+import WatchList from "./components/WatchList"
 
 const router = createBrowserRouter([
   {
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
   {
     path:"/movie-info/:id",
     element:<MovieInfo/>
+  },
+  {
+    path:"/watch-list",
+    element:<WatchList/>
   }
 ]);
 
