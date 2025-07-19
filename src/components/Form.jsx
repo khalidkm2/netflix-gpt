@@ -14,13 +14,32 @@ import { Oval } from "react-loader-spinner";
 
 const FormPage = () => {
   const [isSignIn, setisSignIn] = useState(true);
-  const [errorMessage, setErrorMessage] = useState(null)
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [guestLoading,setGuestLoading] = useState(false);
 
   const dispatch = useDispatch();
 
   const handleToggleSignIn = () => {
     setisSignIn(!isSignIn);
   };
+
+  const handleGuestLogin = () => {
+    setGuestLoading(true)
+
+      signInWithEmailAndPassword(auth, "guest@gmail.com", "guest@123")
+            .then((userCredential) => {
+              // Signed in
+              const user = userCredential.user;
+              // console.log(user);
+
+              // ...
+            })
+            .catch((error) => {
+              console.log(error);
+              setGuestLoading(false);
+              setErrorMessage("Invalid email or password");
+            });
+  }
 
   return (
     <Formik
@@ -92,81 +111,80 @@ const FormPage = () => {
       }}
     >
       {({ isSubmitting }) => (
-        <Form className="bg-black bg-opacity-65 w-9/12 md:w-3/12 p-4 md:mt-52 absolute mt-24 mx-auto right-0 left-0 flex flex-col text-white pb-5 rounded-sm">
-          <h2 className="mt-3 pb-10 pt-4 w-9/12  mx-auto text-center text-3xl font-bold">
-           {isSignIn?"Sign in":"Sign up"}
-          </h2>
-          {!isSignIn && (
-            <div>
-              <label
-                className="block mb-2 text-sm font-medium"
-                htmlFor="fullName"
-              >
-                Full Name
-              </label>
-              <Field
-                required
-                className="bg-gray-600 mb-2 border border-gray-500 transition-all outline-none text-gray-50 text-sm rounded-lg focus:outline-none focus:ring-gray-400 focus:border focus:border-gray-400 block w-full p-2.5"
-                name="fullName"
-                type="text"
-              />
-              <ErrorMessage name="fullName" />
-            </div>
-          )}
+        <Form className="bg-black bg-opacity-65 w-[90%] sm:w-4/5 md:w-2/5 lg:w-1/3 xl:w-1/4 p-6 mt-24 sm:mt-32 md:mt-40 mx-auto flex flex-col text-white rounded-md">
+  <h2 className="text-2xl sm:text-3xl font-bold text-center mb-6">
+    {isSignIn ? "Sign in" : "Sign up"}
+  </h2>
 
-          <label className="block mb-2 text-sm font-medium" htmlFor="email">
-            Email Address
-          </label>
-          <Field
-            className="bg-gray-600 border mb-2 border-gray-500 transition-all outline-none text-gray-50 text-sm rounded-lg focus:outline-none focus:ring-gray-400 focus:border focus:border-gray-400 block w-full p-2.5"
-            name="email"
-            type="email"
-          />
-          <ErrorMessage
-            className=" text-xs py-1 text-gray-400"
-            component={"div"}
-            name="email"
-          />
+  {!isSignIn && (
+    <div className="mb-4">
+      <label className="block mb-1 text-sm font-medium" htmlFor="fullName">
+        Full Name
+      </label>
+      <Field
+        required
+        className="bg-gray-600 border border-gray-500 text-sm rounded-lg block w-full p-2.5 text-white focus:outline-none focus:ring-2 focus:ring-purple-400"
+        name="fullName"
+        type="text"
+      />
+      <ErrorMessage className="text-xs text-gray-300 mt-1" name="fullName" component="div" />
+    </div>
+  )}
 
-          <label className="block mb-2 text-sm font-medium" htmlFor="email">
-            Password
-          </label>
-          <Field
-            className="bg-gray-600 border border-gray-500 transition-all outline-none text-gray-50 text-sm rounded-lg focus:outline-none focus:ring-gray-400 focus:border focus:border-gray-400 block w-full p-2.5"
-            name="password"
-            type="text"
-          />
-          <ErrorMessage
-            className=" text-xs py-1 text-gray-400"
-            component={"div"}
-            name="password"
-          />
+  <div className="mb-4">
+    <label className="block mb-1 text-sm font-medium" htmlFor="email">
+      Email Address
+    </label>
+    <Field
+      className="bg-gray-600 border border-gray-500 text-sm rounded-lg block w-full p-2.5 text-white focus:outline-none focus:ring-2 focus:ring-purple-400"
+      name="email"
+      type="email"
+    />
+    <ErrorMessage className="text-xs text-gray-300 mt-1" name="email" component="div" />
+  </div>
 
-          <p className="text-red-500 text-xs  text-md mt-1 p-2 w-9/12 ">
-            {errorMessage}
-          </p>
+  <div className="mb-4">
+    <label className="block mb-1 text-sm font-medium" htmlFor="password">
+      Password
+    </label>
+    <Field
+      className="bg-gray-600 border border-gray-500 text-sm rounded-lg block w-full p-2.5 text-white focus:outline-none focus:ring-2 focus:ring-purple-400"
+      name="password"
+      type="password"
+    />
+    <ErrorMessage className="text-xs text-gray-300 mt-1" name="password" component="div" />
+  </div>
 
-          <button
-            type="submit"
-            disabled={isSubmitting}
-            className="text-white mt-8 flex justify-center items-center bg-purple-700 hover:bg-purple-800 focus:outline-none focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900"
-          >
-            {isSignIn ? "Sign in" : "Sign up"}
-            {isSubmitting ? (
-              <div className=" px-2 py-0">
-                <Oval height={20} color="white" width={20} />
-              </div>
-            ) : null}
-          </button>
-          <p
-            className="mt-3 underline p-2 w-9/12 mx-auto cursor-pointer italic font-thin"
-            onClick={handleToggleSignIn}
-          >
-            {isSignIn
-              ? " New to Netflix? sign up now"
-              : "Already have an account? sign in here"}
-          </p>
-        </Form>
+  <p className="text-red-500 text-sm mt-1">{errorMessage}</p>
+
+  <button
+    type="submit"
+    disabled={isSubmitting}
+    className="mt-6 flex justify-center items-center bg-purple-700 hover:bg-purple-800 focus:outline-none focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-sm px-5 py-2.5 text-white transition"
+  >
+    {isSignIn ? "Sign in" : "Sign up"}
+    {isSubmitting && (
+      <div className="ml-2">
+        <Oval height={20} width={20} color="white" />
+      </div>
+    )}
+  </button>
+  {isSignIn?<button onClick={handleGuestLogin} className="mt-6 flex justify-center items-center bg-gray-600 hover:bg-gray-800 focus:outline-none focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-sm px-5 py-2.5 text-white transition">Guest 🤵🏻
+  {guestLoading && (
+      <div className="ml-2">
+        <Oval height={20} width={20} color="white" />
+      </div>
+    )}
+  </button>:""}
+
+  <p
+    onClick={handleToggleSignIn}
+    className="mt-4 text-sm text-center text-gray-300 underline cursor-pointer"
+  >
+    {isSignIn ? "New to Netflix? Sign up now" : "Already have an account? Sign in here"}
+  </p>
+</Form>
+
       )}
     </Formik>
   );

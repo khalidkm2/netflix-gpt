@@ -1,34 +1,29 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useMovieTrailer } from "../hooks/useMovieTrailer";
 import { clearTrailerVideo } from "../utils/moviesSlice";
 
-const VideoBackground = ({ id ,fullWidth}) => {
+const VideoBackground = ({ id, fullWidth }) => {
   const trailerVideo = useSelector((store) => store?.movies?.trailerVideo);
-  const dispatch = useDispatch()
-
-  console.log(trailerVideo);
+  const dispatch = useDispatch();
 
   useMovieTrailer(id);
 
-  const widthStyle = fullWidth?'w-screen':'w-[900px]'
-
-  // useEffect(()=> {
-  //   return ()=> {
-  //       dispatch(clearTrailerVideo())
-  //   }
-  // },[])
+  // Width control
+  const widthStyle = fullWidth
+    ? "w-full"
+    : "w-[90%] sm:w-[600px] md:w-[700px] lg:w-[900px]";
 
   return (
-    <div className="">
+    <div className="flex justify-center items-center mx-auto">
       {trailerVideo?.key && (
         <iframe
-
-          className={`${widthStyle} aspect-video  `}
-          src={`https://www.youtube.com/embed/${trailerVideo?.key}?si=soXi1RUlOmp48Te2`+`?&autoplay=1&mute=1`}
+          className={`${widthStyle} aspect-video rounded-md shadow-lg`}
+          src={`https://www.youtube.com/embed/${trailerVideo?.key}?autoplay=1&mute=1`}
           title="YouTube video player"
-          allow="accelerometer; allowfullscreen; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        allowFullScreen></iframe>
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowFullScreen
+        ></iframe>
       )}
     </div>
   );

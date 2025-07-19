@@ -1,22 +1,21 @@
-import React from 'react'
-import { IMAGE_URL } from '../utils/constants'
+import React from "react";
+import { IMAGE_URL } from "../utils/constants";
 
-const MovieCreaters = ({info}) => {
-    
-   const{name,logo_path} = info;
-//    if(!logo)
+const MovieCreaters = ({ info }) => {
+  const { name, logo_path } = info;
+
   return (
-    <div>
-    <p className=' text-gray-500 text-lg font-bold py-4 '>{name}</p>
-    {logo_path && (<div>
-   <img
-            className=" max-w-[200px] bg-gray-100 p-10"
-            alt="image"
-            src={IMAGE_URL + logo_path}
-          />
-   </div>)}
+    <div className="text-center max-w-xs">
+      <p className="text-gray-300 font-semibold text-lg mb-2">{name}</p>
+      {logo_path && (
+        <img
+          src={IMAGE_URL + logo_path}
+          alt={name}
+          className="max-w-[180px] mx-auto bg-white rounded-md p-4"
+        />
+      )}
     </div>
-  )
-}
+  );
+};
 
-export default MovieCreaters
+export default MovieCreaters;

@@ -2,9 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { auth } from "../utils/firebase";
 import { onAuthStateChanged, signOut } from "firebase/auth";
-import { useNavigate,Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { addUser, removeUser } from "../utils/userSlice";
-import { LOGO } from "../utils/constants";
 import { toggleShowGpt } from "../utils/gptSlice";
 import { SUPPORTED_LANGUAGES } from "../utils/constants";
 import { setLanguage } from "../utils/configSlice";
@@ -13,33 +12,24 @@ import { motion } from "framer-motion";
 
 const Header = () => {
   const userData = useSelector((store) => store.user);
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
   const isGptPage = useSelector((store) => store.gpt.showGpt);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const handleSignOut = () => {
-    signOut(auth)
-      .then(() => {
-        console.log("sign out successfully");
-      })
-      .catch((error) => {
-        console.log(error.message);
-      });
+    signOut(auth).catch((err) => console.error(err));
   };
+
+  const handleGpt = () => dispatch(toggleShowGpt());
+
+  const handleChangeLang = (e) => dispatch(setLanguage(e.target.value));
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         const { uid, email, displayName, photoURL } = user;
-        dispatch(
-          addUser({
-            uid: uid,
-            email: email,
-            displayName: displayName,
-            photoURL: photoURL,
-          })
-        );
+        dispatch(addUser({ uid, email, displayName, photoURL }));
         navigate("/browse");
       } else {
         dispatch(removeUser());
@@ -49,57 +39,46 @@ const Header = () => {
     return () => unsubscribe();
   }, []);
 
-  const handleGpt = () => {
-    dispatch(toggleShowGpt());
-  };
-
-  const handleChangeLang = (e) => {
-    dispatch(setLanguage(e.target.value));
-  };
-
   return (
-    <div className=" relative md:absolute bg-black md:bg-transparent  rounded-md w-full flex justify-between z-10 items-center p-4">
-      <div className="w-40 md:w-52">
-        <img className="z-100" src={mylogo} alt="Logo" />
+    <header className="relative md:absolute w-full bg-black/70 md:bg-transparent px-4 py-3 z-20 flex justify-between items-center shadow-sm">
+      <div className="w-32 md:w-44">
+        <img src={mylogo} alt="Logo" className="h-auto w-full" />
       </div>
 
-      {/* Hamburger Menu */}
-     {userData && ( <button
-        className="md:hidden text-white"
-        onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-        aria-label="Open menu"
-      >
-        ☰
-      </button>)}
-
-      {/* Sidebar and Overlay */}
-      {isSidebarOpen && (
-        <div
-          className="fixed inset-0 bg-black bg-opacity-50 z-20"
-          onClick={() => setIsSidebarOpen(false)}
-        />
+      {/* Mobile Menu Icon */}
+      {userData && (
+        <button
+          className="md:hidden text-white text-2xl"
+          onClick={() => setIsSidebarOpen(true)}
+          aria-label="Open menu"
+        >
+          ☰
+        </button>
       )}
 
+      {/* Mobile Sidebar */}
       <motion.div
         initial={{ x: "100%", opacity: 0 }}
         animate={{ x: isSidebarOpen ? "0%" : "100%", opacity: isSidebarOpen ? 1 : 0 }}
-        transition={{ duration: 0.3, ease: "easeOut" }}
-        className="fixed top-0 right-0 h-full bg-black w-64 p-4 flex flex-col items-center shadow-lg md:hidden z-30"
+        transition={{ duration: 0.3 }}
+        className={`fixed top-0 right-0 h-full w-64 bg-zinc-900 z-50 p-6 flex flex-col shadow-lg ${
+          isSidebarOpen ? "visible" : "invisible"
+        }`}
       >
-       { userData && (<button
-          className="text-white mb-4"
+        <button
+          className="text-white text-2xl self-end mb-6"
           onClick={() => setIsSidebarOpen(false)}
           aria-label="Close menu"
         >
           ✕
-        </button>)}
+        </button>
 
         {userData && (
           <>
-            {/* {isGptPage && (
+            {isGptPage && (
               <select
-                className="bg-black text-gray-100 py-2 px-3 rounded-sm mb-2"
                 onChange={handleChangeLang}
+                className="bg-zinc-800 text-white px-3 py-2 mb-4 rounded-md w-full"
               >
                 {SUPPORTED_LANGUAGES.map((lan) => (
                   <option key={lan.identifier} value={lan.identifier}>
@@ -107,35 +86,39 @@ const Header = () => {
                   </option>
                 ))}
               </select>
-            )} */}
+            )}
+
             <button
-              className="text-white hover:bg-purple-900 mb-2 px-4 py-2 rounded-md bg-purple-800"
               onClick={handleGpt}
+              className="bg-purple-700 hover:bg-purple-600 text-white py-2 px-4 rounded-md mb-3"
             >
               {isGptPage ? "Home" : "Search"}
             </button>
-           <Link to={"/watch-list"}>
-           <div className="text-white hover:bg-purple-900 mb-2 p-2 rounded-md bg-purple-800">
-              Watchlist
-            </div>
-           </Link>
-            <button
-              className="px-3 hover:bg-red-800 transition-all duration-75 py-2 text-white bg-red-600 rounded-md"
-              onClick={handleSignOut}
+
+            <Link
+              to="/watch-list"
+              className="bg-blue-600 hover:bg-blue-500 text-white py-2 px-4 rounded-md mb-3 text-center"
             >
-              Sign out
+              Watchlist
+            </Link>
+
+            <button
+              onClick={handleSignOut}
+              className="bg-red-600 hover:bg-red-500 text-white py-2 px-4 rounded-md"
+            >
+              Sign Out
             </button>
           </>
         )}
       </motion.div>
 
-      {/* Desktop Navigation */}
+      {/* Desktop Buttons */}
       {userData && (
-        <div className="hidden md:flex">
+        <div className="hidden md:flex items-center gap-4">
           {isGptPage && (
             <select
-              className="bg-black text-gray-100 py-2 px-3 rounded-sm"
               onChange={handleChangeLang}
+              className="bg-black text-white px-3 py-2 rounded-md"
             >
               {SUPPORTED_LANGUAGES.map((lan) => (
                 <option key={lan.identifier} value={lan.identifier}>
@@ -145,25 +128,28 @@ const Header = () => {
             </select>
           )}
           <button
-            className="text-white hover:bg-purple-900 mx-2 md:mx-6 p-1 md:p-2 rounded-md bg-purple-800"
             onClick={handleGpt}
+            className="bg-purple-700 hover:bg-purple-600 text-white px-4 py-2 rounded-md"
           >
             {isGptPage ? "Home" : "Search"}
           </button>
-         <Link to={"/watch-list"}>
-         <div className="text-white hover:bg-purple-900 mx-2 md:mx-6 p-1 md:p-2 rounded-md bg-purple-800">
-            Watchlist
-          </div>
-         </Link>
-          <button
-            className="px-4 hover:bg-red-800 transition-all duration-75 py-2 mr-2 text-white bg-red-600 rounded-md"
-            onClick={handleSignOut}
+
+          <Link
+            to="/watch-list"
+            className="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-md"
           >
-            Sign out
+            Watchlist
+          </Link>
+
+          <button
+            onClick={handleSignOut}
+            className="bg-red-600 hover:bg-red-500 text-white px-4 py-2 rounded-md"
+          >
+            Sign Out
           </button>
         </div>
       )}
-    </div>
+    </header>
   );
 };
 

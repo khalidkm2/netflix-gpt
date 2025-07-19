@@ -122,17 +122,24 @@ const Login = () => {
   }
 
   return (
-    <div>
-      <Header />
-      <div className="absolute -z-10">
-        <img
-          className=" h-screen md:h-full object-cover filter brightness-50"
-          src={bgimagecolor}
-          alt="background"
-        />
-      </div>
-      <FormPage/>
-    </div>
+ <div className="relative min-h-screen">
+  <Header />
+
+  {/* Background Image */}
+  <div className="absolute inset-0 -z-10">
+    <img
+      className="w-full h-full object-cover brightness-50"
+      src={bgimagecolor}
+      alt="background"
+    />
+  </div>
+
+  {/* Form Section */}
+  <div className="flex items-center justify-center px-4 py-10 sm:py-20 min-h-screen">
+    <FormPage />
+  </div>
+</div>
+
   );
 };
 
