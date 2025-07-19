@@ -181,7 +181,7 @@ const FormPage = () => {
     onClick={handleToggleSignIn}
     className="mt-4 text-sm text-center text-gray-300 underline cursor-pointer"
   >
-    {isSignIn ? "New to Netflix? Sign up now" : "Already have an account? Sign in here"}
+    {isSignIn ? "New to flixify? Sign up now" : "Already have an account? Sign in here"}
   </p>
 </Form>
 
